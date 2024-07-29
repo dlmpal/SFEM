@@ -1,9 +1,18 @@
 """
 Installation script for SFEM
-python3 install.py --remove_previous_build --mpi_dir=/usr/lib/x86_64-linux-gnu/openmpi/ 
---mpi_cxx_compiler=/usr/bin/mpic++ --petsc_dir=$PETSC_DIR 
---petsc_arch=$PETSC_ARCH --metis_dir=/home/user/local 
---slepc_dir=$SLEPC_DIR --install_dir=$SFEM_DIR --with_apps --with_pysfem --with_stubs
+Example usage:
+python3 install.py 
+--mpi_dir=$MPI_DIR 
+--mpi_cxx_compiler=mpic++ 
+--petsc_dir=$PETSC_DIR 
+--petsc_arch=$PETSC_ARCH 
+--metis_dir=$METIS_DIR 
+--slepc_dir=$SLEPC_DIR 
+--install_dir=$SFEM_DIR 
+--with_apps 
+--with_pysfem 
+--with_stubs 
+--remove_previous_build
 """
 
 import os
@@ -77,6 +86,7 @@ CMAKE_INSTALL_OPTIONS = {
     "WITH_APPS": "On" if args.with_apps is True else "Off",
     "WITH_PYSFEM": "On" if args.with_pysfem is True else "Off"
 }
+print(CMAKE_INSTALL_OPTIONS["METIS_DIR"])
 # ==============================================================================
 # Paths of the build/config/install directories
 BUILD_DIR = args.build_dir
