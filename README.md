@@ -3,9 +3,10 @@ SFEM is a C++ finite element framework, primarily developed for the solution of 
 It supports distributed memory parallelism via the MPI protocol.
 SFEM utilizes PETSc for sparse linear algebra related computations, and METIS for mesh partitioning. 
 SLEPc is also an optional dependency, which enables the computation of eigenvalues of discretized operators.
- 
+
 ## Requirements
 * C++ 17 and above
+* Python 3.8 and above
 * PETSc (linear algebra)
 * MPI (parallel execution)
 * METIS (mesh partitioning)
