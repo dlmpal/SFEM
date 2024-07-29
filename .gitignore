@@ -1,0 +1,5 @@
+build/
+cmake/
+.idea/
+.vscode/
+src/fe/elements/structural

@@ -1,0 +1,8 @@
+elasticity3D/build/
+elasticity3d/fields/
+
+heat_transfer/
+shell/
+pysfem/
+laplace/
+elasticity2D/
