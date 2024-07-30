@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace sfem;
 
-void elasticity_solver_2d(const std::string &mesh_path, Scalar E, Scalar nu, Scalar thick)
+void solve_elasticity(const std::string &mesh_path, Scalar E, Scalar nu, Scalar thick)
 {
     auto mesh = io::read_mesh(mesh_path);
     mesh.info();
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
     Scalar nu = 0.35;
     Scalar thick = 1e-3;
 
-    elasticity_solver_2d(mesh_path, E, nu, thick);
+    solve_elasticity(mesh_path, E, nu, thick);
 
     finalize();
     return 0;

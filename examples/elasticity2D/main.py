@@ -15,7 +15,7 @@ prop.nu = 0.35
 
 # Constitutive
 thick = 1e-3
-type = pysfem.fe.constitutive.ThermoElasticPlaneConstitutive.Type.plane_stress
+type = pysfem.fe.constitutive.ThermoElasticPlaneConstitutive.Type.plane_strain
 constitutive = pysfem.fe.constitutive.ThermoElasticPlaneConstitutive(
     prop, thick, type)
 

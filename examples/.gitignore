@@ -1,8 +1,12 @@
+elasticity2D/build/
+elasticity2D/fields/
+
 elasticity3D/build/
-elasticity3d/fields/
+elasticity3D/fields/
+
+laplace/build/
+laplace/fields/
 
 heat_transfer/
 shell/
 pysfem/
-laplace/
-elasticity2D/
