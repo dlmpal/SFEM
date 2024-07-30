@@ -86,7 +86,6 @@ CMAKE_INSTALL_OPTIONS = {
     "WITH_APPS": "On" if args.with_apps is True else "Off",
     "WITH_PYSFEM": "On" if args.with_pysfem is True else "Off"
 }
-print(CMAKE_INSTALL_OPTIONS["METIS_DIR"])
 # ==============================================================================
 # Paths of the build/config/install directories
 BUILD_DIR = args.build_dir
