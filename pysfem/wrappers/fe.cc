@@ -64,8 +64,8 @@ namespace sfem_wrappers
         init_constitutive(constitutive);
 
         // Thermal elements
-        // nb::module_ thermal = m.def_submodule("thermal", "Thermal elements");
-        // init_thermal(thermal);
+        nb::module_ thermal = m.def_submodule("thermal", "Thermal elements");
+        init_thermal(thermal);
 
         // Solid elements
         nb::module_ solid = m.def_submodule("solid", "Solid elements");
@@ -102,6 +102,15 @@ namespace sfem_wrappers
         nb::class_<ThermoElasticConstitutive>(m, "ThermoElasticConstitutive")
             .def("prop", &ThermoElasticConstitutive::prop, nb::rv_policy::reference_internal);
 
+        // ThermoElasticPlaneConstitutive
+        nb::class_<ThermoElasticPlaneConstitutive, ThermoElasticConstitutive> plane_cosntitutve(m, "ThermoElasticPlaneConstitutive");
+        plane_cosntitutve.def(nb::init<ThermoMechanicalProperties &, Scalar, ThermoElasticPlaneConstitutive::Type>());
+
+        // ThermoElasticPlaneConstitutive type (plane stress or plane strain)
+        nb::enum_<ThermoElasticPlaneConstitutive::Type>(plane_cosntitutve, "Type")
+            .value("plane_stress", ThermoElasticPlaneConstitutive::Type::plane_stress)
+            .value("plane_strain", ThermoElasticPlaneConstitutive::Type::plane_strain);
+
         // ThermoElasticSolidConstitutive
         nb::class_<ThermoElasticSolidConstitutive, ThermoElasticConstitutive>(m, "ThermoElasticSolidConstitutive")
             .def(nb::init<ThermoMechanicalProperties &>());
@@ -109,6 +118,35 @@ namespace sfem_wrappers
     //=============================================================================
     void init_thermal(nb::module_ &m)
     {
+        using namespace thermal;
+
+        // HeatConduction2D
+        nb::class_<HeatConduction2D, FiniteElement>(m, "HeatConduction2D")
+            .def(nb::init<mesh::Cell, constitutive::ThermoElasticPlaneConstitutive &>())
+            .def("constitutive", &HeatConduction2D::constitutive)
+            .def("add_heat_load", &HeatConduction2D::add_heat_load);
+
+        // HeatConduction3D
+        nb::class_<HeatConduction3D, FiniteElement>(m, "HeatConduction3D")
+            .def(nb::init<mesh::Cell, constitutive::ThermoElasticSolidConstitutive &>())
+            .def("constitutive", &HeatConduction3D::constitutive)
+            .def("add_heat_load", &HeatConduction3D::add_heat_load);
+
+        // HeatFlux2D
+        nb::class_<HeatFlux2D, FiniteElement>(m, "HeatFlux2D")
+            .def(nb::init<mesh::Cell, Scalar, Scalar>());
+
+        // HeatFlux3D
+        nb::class_<HeatFlux3D, FiniteElement>(m, "HeatFlux3D")
+            .def(nb::init<mesh::Cell, Scalar>());
+
+        // HeatConvection2D
+        nb::class_<HeatConvection2D, FiniteElement>(m, "HeatConvection2D")
+            .def(nb::init<mesh::Cell, Scalar, Scalar, Scalar>());
+
+        // HeatConvection3D
+        nb::class_<HeatConvection3D, FiniteElement>(m, "HeatConvection2D")
+            .def(nb::init<mesh::Cell, Scalar, Scalar>());
     }
     //=============================================================================
     void init_solid(nb::module_ &m)
@@ -125,10 +163,18 @@ namespace sfem_wrappers
 
         // LinearElasticity3D
         nb::class_<LinearElasticity3D, FiniteElement>(m, "LinearElasticity3D")
-            .def("constitutive", &LinearElasticity3D::constitutive)
             .def(nb::init<mesh::Cell, ThermoElasticSolidConstitutive &>())
             .def("constitutive", &LinearElasticity3D::constitutive)
+            .def("constitutive", &LinearElasticity3D::constitutive)
             .def("add_inertial_load", &LinearElasticity3D::add_inertial_load);
+
+        // PressureLoad2D
+        nb::class_<PressureLoad2D, FiniteElement>(m, "PressureLoad2D")
+            .def(nb::init<mesh::Cell, mesh::Field &, Scalar>());
+
+        // PressureLoad3D
+        nb::class_<PressureLoad3D, FiniteElement>(m, "PressureLoad3D")
+            .def(nb::init<mesh::Cell, mesh::Field &>());
     }
     //=============================================================================
     void init_function(nb::module_ &m)
