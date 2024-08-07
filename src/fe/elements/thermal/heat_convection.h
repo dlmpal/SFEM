@@ -12,11 +12,13 @@ namespace sfem::fe::thermal
 
         la::DenseMatrix evaluate_stiff_matrix(const FEData &data,
                                               const std::vector<Scalar> &xpts,
-                                              const std::vector<Scalar> &u) const override;
+                                              const std::vector<Scalar> &u,
+                                              Scalar time = 0) const override;
 
         la::DenseMatrix evaluate_load_vector(const FEData &data,
                                              const std::vector<Scalar> &xpts,
-                                             const std::vector<Scalar> &u) const override;
+                                             const std::vector<Scalar> &u,
+                                             Scalar time = 0) const override;
 
     private:
         /// @brief Heat transfer coefficient
@@ -36,11 +38,13 @@ namespace sfem::fe::thermal
 
         la::DenseMatrix evaluate_stiff_matrix(const FEData &data,
                                               const std::vector<Scalar> &xpts,
-                                              const std::vector<Scalar> &u) const override;
+                                              const std::vector<Scalar> &u,
+                                              Scalar time = 0) const override;
 
         la::DenseMatrix evaluate_load_vector(const FEData &data,
                                              const std::vector<Scalar> &xpts,
-                                             const std::vector<Scalar> &u) const override;
+                                             const std::vector<Scalar> &u,
+                                             Scalar time = 0) const override;
 
     private:
         /// @brief Heat transfer coefficient

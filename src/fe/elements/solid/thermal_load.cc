@@ -16,7 +16,8 @@ namespace sfem::fe::solid
     //=============================================================================
     la::DenseMatrix ThermalLoad2D::evaluate_load_vector(const FEData &data,
                                                         const std::vector<Scalar> &xpts,
-                                                        const std::vector<Scalar> &u) const
+                                                        const std::vector<Scalar> &u,
+                                                        Scalar time = 0) const
     {
         auto dT = T_.get_cell_values(cell_);
         for (int i = 0; i < basis_->n_nodes(); i++)

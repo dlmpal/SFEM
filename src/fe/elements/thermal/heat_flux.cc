@@ -10,7 +10,8 @@ namespace sfem::fe::thermal
     //=============================================================================
     la::DenseMatrix HeatFlux2D::evaluate_load_vector(const FEData &data,
                                                      const std::vector<Scalar> &xpts,
-                                                     const std::vector<Scalar> &u) const
+                                                     const std::vector<Scalar> &u,
+                                                     Scalar time = 0) const
     {
         int n_nodes = basis_->n_nodes();
         la::DenseMatrix Fe(n_nodes, 1);
@@ -28,7 +29,8 @@ namespace sfem::fe::thermal
     //=============================================================================
     la::DenseMatrix HeatFlux3D::evaluate_load_vector(const FEData &data,
                                                      const std::vector<Scalar> &xpts,
-                                                     const std::vector<Scalar> &u) const
+                                                     const std::vector<Scalar> &u,
+                                                     Scalar time = 0) const
     {
         int n_nodes = basis_->n_nodes();
         la::DenseMatrix Fe(n_nodes, 1);

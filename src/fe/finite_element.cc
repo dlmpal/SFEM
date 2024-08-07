@@ -111,7 +111,8 @@ namespace sfem::fe
     //=============================================================================
     la::DenseMatrix FiniteElement::integrate_fe_matrix(const std::vector<Scalar> &xpts,
                                                        const std::vector<Scalar> &u,
-                                                       FEMatrixType type) const
+                                                       FEMatrixType type,
+                                                       Scalar time) const
     {
         la::DenseMatrix M(n_dof(), n_dof());
 
@@ -140,7 +141,8 @@ namespace sfem::fe
     //=============================================================================
     la::DenseMatrix FiniteElement::integrate_fe_vector(const std::vector<Scalar> &xpts,
                                                        const std::vector<Scalar> &u,
-                                                       FEVectorType type) const
+                                                       FEVectorType type,
+                                                       Scalar time) const
     {
         la::DenseMatrix F(n_dof(), 1);
 
@@ -163,7 +165,8 @@ namespace sfem::fe
     //=============================================================================
     la::DenseMatrix FiniteElement::integrate_function(const std::vector<Scalar> &xpts,
                                                       const std::vector<Scalar> &u,
-                                                      const Function &func) const
+                                                      const Function &func,
+                                                      Scalar time) const
     {
         la::DenseMatrix F(func.size(), 1);
         for (int npt = 0; npt < basis_->n_qpts(); npt++)
@@ -177,7 +180,8 @@ namespace sfem::fe
     std::tuple<la::DenseMatrix, la::DenseMatrix>
     FiniteElement::project_function(const std::vector<Scalar> &xpts,
                                     const std::vector<Scalar> &u,
-                                    const Function &func) const
+                                    const Function &func,
+                                    Scalar time) const
     {
         la::DenseMatrix M(cell_.n_nodes(), cell_.n_nodes());
         la::DenseMatrix F(cell_.n_nodes(), func.size());

@@ -10,7 +10,8 @@ namespace sfem::fe::solid
     //=============================================================================
     la::DenseMatrix PressureLoad2D::evaluate_load_vector(const FEData &data,
                                                          const std::vector<Scalar> &xpts,
-                                                         const std::vector<Scalar> &u) const
+                                                         const std::vector<Scalar> &u,
+                                                         Scalar time) const
     {
         auto p = P_.get_cell_values(cell_);
         auto normal = cell_.face_normal(-1, xpts);
@@ -33,7 +34,8 @@ namespace sfem::fe::solid
     //=============================================================================
     la::DenseMatrix PressureLoad3D::evaluate_load_vector(const FEData &data,
                                                          const std::vector<Scalar> &xpts,
-                                                         const std::vector<Scalar> &u) const
+                                                         const std::vector<Scalar> &u,
+                                                         Scalar time) const
     {
         auto p = P_.get_cell_values(cell_);
         auto normal = cell_.face_normal(-1, xpts);

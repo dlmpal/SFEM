@@ -104,10 +104,12 @@ namespace sfem::fe
         /// @param data Basis transformation data
         /// @param xpts Element nodal positions
         /// @param u Field values corresponding to the element nodes
+        /// @param Current solution time
         /// @return Element mass matrix
         virtual la::DenseMatrix evaluate_mass_matrix(const FEData &data,
                                                      const std::vector<Scalar> &xpts,
-                                                     const std::vector<Scalar> &u) const
+                                                     const std::vector<Scalar> &u,
+                                                     Scalar time = 0) const
         {
             return la::DenseMatrix(n_dof(), n_dof());
         }
@@ -117,10 +119,12 @@ namespace sfem::fe
         /// @param data Basis transformation data
         /// @param xpts Element nodal positions
         /// @param u Field values corresponding to the element nodes
+        /// @param Current solution time
         /// @return Element damping matrix
         virtual la::DenseMatrix evaluate_damping_matrix(const FEData &data,
                                                         const std::vector<Scalar> &xpts,
-                                                        const std::vector<Scalar> &u) const
+                                                        const std::vector<Scalar> &u,
+                                                        Scalar time = 0) const
         {
             return la::DenseMatrix(n_dof(), n_dof());
         }
@@ -130,10 +134,12 @@ namespace sfem::fe
         /// @param data Basis transformation data
         /// @param xpts Element nodal positions
         /// @param u Field values corresponding to the element nodes
+        /// @param Current solution time
         /// @return Element stiffness matrix
         virtual la::DenseMatrix evaluate_stiff_matrix(const FEData &data,
                                                       const std::vector<Scalar> &xpts,
-                                                      const std::vector<Scalar> &u) const
+                                                      const std::vector<Scalar> &u,
+                                                      Scalar time = 0) const
         {
             return la::DenseMatrix(n_dof(), n_dof());
         }
@@ -142,31 +148,37 @@ namespace sfem::fe
         /// @note  Returns a zero vector if not overwritten
         /// @param data Basis transformation data
         /// @param xpts Element nodal positions
-        /// @param u Field values corresponding to the element nodes
+        /// @param u Solution values corresponding to element nodes
+        /// @param time Current solution time
+        /// @param Current solution time
         /// @return Element load vector
-        /// @todo Change return value to std::vector
         virtual la::DenseMatrix evaluate_load_vector(const FEData &data,
                                                      const std::vector<Scalar> &xpts,
-                                                     const std::vector<Scalar> &u) const
+                                                     const std::vector<Scalar> &u,
+                                                     Scalar time = 0) const
         {
             return la::DenseMatrix(n_dof(), 1);
         }
 
         la::DenseMatrix integrate_fe_matrix(const std::vector<Scalar> &xpts,
                                             const std::vector<Scalar> &u,
-                                            FEMatrixType type) const;
+                                            FEMatrixType type,
+                                            Scalar time = 0) const;
 
         la::DenseMatrix integrate_fe_vector(const std::vector<Scalar> &xpts,
                                             const std::vector<Scalar> &u,
-                                            FEVectorType type) const;
+                                            FEVectorType type,
+                                            Scalar time = 0) const;
 
         la::DenseMatrix integrate_function(const std::vector<Scalar> &xpts,
                                            const std::vector<Scalar> &u,
-                                           const Function &func) const;
+                                           const Function &func,
+                                           Scalar time = 0) const;
 
         std::tuple<la::DenseMatrix, la::DenseMatrix> project_function(const std::vector<Scalar> &xpts,
                                                                       const std::vector<Scalar> &u,
-                                                                      const Function &func) const;
+                                                                      const Function &func,
+                                                                      Scalar time = 0) const;
 
     protected:
         /// @brief Element name

@@ -13,6 +13,7 @@ namespace sfem::fe::function
         la::DenseMatrix operator()(const FiniteElement &elem,
                                    const FEData &data,
                                    const std::vector<Scalar> &xpts,
-                                   const std::vector<Scalar> &u) const override;
+                                   const std::vector<Scalar> &u,
+                                   Scalar time = 0) const override;
     };
 }

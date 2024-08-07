@@ -22,7 +22,8 @@ namespace sfem::fe::thermal
     //=============================================================================
     la::DenseMatrix HeatConduction2D::evaluate_mass_matrix(const FEData &data,
                                                            const std::vector<Scalar> &xpt,
-                                                           const std::vector<Scalar> &u) const
+                                                           const std::vector<Scalar> &u,
+                                                           Scalar time) const
     {
         int n_nodes = basis_->n_nodes();
         Scalar rho = constitutive_.prop().rho;
@@ -41,7 +42,8 @@ namespace sfem::fe::thermal
     //=============================================================================
     la::DenseMatrix HeatConduction2D::evaluate_stiff_matrix(const FEData &data,
                                                             const std::vector<Scalar> &xpts,
-                                                            const std::vector<Scalar> &u) const
+                                                            const std::vector<Scalar> &u,
+                                                            Scalar time) const
     {
         int n_nodes = basis_->n_nodes();
         Scalar kappa = constitutive_.prop().kappa;
@@ -60,7 +62,8 @@ namespace sfem::fe::thermal
     //=============================================================================
     la::DenseMatrix HeatConduction2D::evaluate_load_vector(const FEData &data,
                                                            const std::vector<Scalar> &xpts,
-                                                           const std::vector<Scalar> &u) const
+                                                           const std::vector<Scalar> &u,
+                                                           Scalar time) const
     {
         la::DenseMatrix Fe(basis_->n_nodes(), 1);
         for (std::size_t i = 0; i < loads_.size(); i++)
@@ -89,7 +92,8 @@ namespace sfem::fe::thermal
     //=============================================================================
     la::DenseMatrix HeatConduction3D::evaluate_mass_matrix(const FEData &data,
                                                            const std::vector<Scalar> &xpts,
-                                                           const std::vector<Scalar> &u) const
+                                                           const std::vector<Scalar> &u,
+                                                           Scalar time) const
     {
         int n_nodes = basis_->n_nodes();
         Scalar rho = constitutive_.prop().rho;
@@ -107,7 +111,8 @@ namespace sfem::fe::thermal
     //=============================================================================
     la::DenseMatrix HeatConduction3D::evaluate_stiff_matrix(const FEData &data,
                                                             const std::vector<Scalar> &xpts,
-                                                            const std::vector<Scalar> &u) const
+                                                            const std::vector<Scalar> &u,
+                                                            Scalar time) const
     {
         int n_nodes = basis_->n_nodes();
         Scalar kappa = constitutive_.prop().kappa;
@@ -126,7 +131,8 @@ namespace sfem::fe::thermal
     //=============================================================================
     la::DenseMatrix HeatConduction3D::evaluate_load_vector(const FEData &data,
                                                            const std::vector<Scalar> &xpts,
-                                                           const std::vector<Scalar> &u) const
+                                                           const std::vector<Scalar> &u,
+                                                           Scalar time) const
     {
         la::DenseMatrix Fe(basis_->n_nodes(), 1);
         for (std::size_t i = 0; i < loads_.size(); i++)

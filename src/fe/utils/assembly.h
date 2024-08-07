@@ -9,10 +9,17 @@
 namespace sfem::fe
 {
 
+    /// @brief Assemble matrix contributions from elements into a PetscMat
+    /// @param elems The contributing elements
+    /// @param field Corresponding field
+    /// @param type Type of FEMatrix
+    /// @param mat PetscMat where entries are assembled
+    /// @param time Current solution time
     inline void assemble_matrix(const std::vector<std::shared_ptr<FiniteElement>> &elems,
                                 const mesh::Field &field,
                                 FEMatrixType type,
-                                la::petsc::PetscMat &mat)
+                                la::petsc::PetscMat &mat,
+                                Scalar time = 0)
     {
         // Time the assembly
         common::Timer timer("Matrix assembly");
@@ -27,15 +34,22 @@ namespace sfem::fe
             auto u = field.get_cell_values(elem->cell());
 
             // Integrate and add contribution
-            auto elem_matrix = elem->integrate_fe_matrix(xpts, u, type);
+            auto elem_matrix = elem->integrate_fe_matrix(xpts, u, type, time);
             mat.add_values(dof, elem_matrix.entries());
         }
     }
 
+    /// @brief Assemble vector contributions from elements into a PetscVec
+    /// @param elems The contributing elements
+    /// @param field Corresponding field
+    /// @param type Type of FEVector
+    /// @param vec PetscVec where entries are assembled
+    /// @param time Current solution time
     inline void assemble_vector(const std::vector<std::shared_ptr<FiniteElement>> &elems,
                                 const mesh::Field &field,
                                 FEVectorType type,
-                                la::petsc::PetscVec &vec)
+                                la::petsc::PetscVec &vec,
+                                Scalar time = 0)
     {
         // Time the assembly
         common::Timer timer("Vector assembly");
@@ -50,7 +64,7 @@ namespace sfem::fe
             auto u = field.get_cell_values(elem->cell());
 
             // Integrate and add contribution
-            auto elem_vec = elem->integrate_fe_vector(xpts, u, type);
+            auto elem_vec = elem->integrate_fe_vector(xpts, u, type, time);
             vec.add_values(dof, elem_vec.entries());
         }
     }
@@ -59,11 +73,16 @@ namespace sfem::fe
     /// @param elems Elements to use for integration
     /// @param field Corresponding field
     /// @param func Function to be integrated
+    /// @param time Current solution time
     /// @return The integrated function value(s)
     inline la::DenseMatrix assemble_function(const std::vector<std::shared_ptr<FiniteElement>> &elems,
                                              const mesh::Field &field,
-                                             const Function &func)
+                                             const Function &func,
+                                             Scalar time = 0)
     {
+        // Time the assembly
+        common::Timer timer("Function assembly");
+
         la::DenseMatrix value_(func.size(), 1);
 
         for (const auto &elem : elems)
@@ -73,7 +92,7 @@ namespace sfem::fe
             auto dof = field.get_cell_dof(elem->cell());
             auto u = field.get_cell_values(elem->cell());
 
-            value_ += elem->integrate_function(xpts, u, func);
+            value_ += elem->integrate_function(xpts, u, func, time);
         }
 
         if (Logger::instance().n_procs() > 1)

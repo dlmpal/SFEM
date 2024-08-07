@@ -12,7 +12,8 @@ namespace sfem::fe::function
     la::DenseMatrix FieldGradient::operator()(const fe::FiniteElement &elem,
                                               const FEData &data,
                                               const std::vector<Scalar> &xpts,
-                                              const std::vector<Scalar> &u) const
+                                              const std::vector<Scalar> &u,
+                                              Scalar time) const
     {
         int n_vars = elem.n_vars();
         int n_nodes = elem.basis()->n_nodes();

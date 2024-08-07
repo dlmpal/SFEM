@@ -11,7 +11,8 @@ namespace sfem::fe::thermal
 
         la::DenseMatrix evaluate_load_vector(const FEData &data,
                                              const std::vector<Scalar> &xpts,
-                                             const std::vector<Scalar> &u) const override;
+                                             const std::vector<Scalar> &u,
+                                             Scalar time = 0) const override;
 
     private:
         /// @brief Heat flux value
@@ -28,7 +29,8 @@ namespace sfem::fe::thermal
 
         la::DenseMatrix evaluate_load_vector(const FEData &data,
                                              const std::vector<Scalar> &xpts,
-                                             const std::vector<Scalar> &u) const override;
+                                             const std::vector<Scalar> &u,
+                                             Scalar time = 0) const override;
 
     private:
         /// @brief Heat flux value

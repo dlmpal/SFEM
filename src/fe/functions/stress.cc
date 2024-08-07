@@ -13,7 +13,8 @@ namespace sfem::fe::function
     la::DenseMatrix Stress2D::operator()(const FiniteElement &elem,
                                          const FEData &data,
                                          const std::vector<Scalar> &xpts,
-                                         const std::vector<Scalar> &u) const
+                                         const std::vector<Scalar> &u,
+                                         Scalar time) const
     {
         la::DenseMatrix stress(3, 1);
 
@@ -35,7 +36,8 @@ namespace sfem::fe::function
     la::DenseMatrix VonMisesStress2D::operator()(const FiniteElement &elem,
                                                  const FEData &data,
                                                  const std::vector<Scalar> &xpts,
-                                                 const std::vector<Scalar> &u) const
+                                                 const std::vector<Scalar> &u,
+                                                 Scalar time) const
     {
         la::DenseMatrix stress_vm(1, 1);
 
@@ -57,7 +59,8 @@ namespace sfem::fe::function
     la::DenseMatrix Stress3D::operator()(const FiniteElement &elem,
                                          const FEData &data,
                                          const std::vector<Scalar> &xpts,
-                                         const std::vector<Scalar> &u) const
+                                         const std::vector<Scalar> &u,
+                                         Scalar time) const
     {
         la::DenseMatrix stress(6, 1);
 
@@ -79,7 +82,8 @@ namespace sfem::fe::function
     la::DenseMatrix VonMisesStress3D::operator()(const FiniteElement &elem,
                                                  const FEData &data,
                                                  const std::vector<Scalar> &xpts,
-                                                 const std::vector<Scalar> &u) const
+                                                 const std::vector<Scalar> &u,
+                                                 Scalar time) const
     {
         la::DenseMatrix stress_vm(1, 1);
 

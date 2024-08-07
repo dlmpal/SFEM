@@ -29,7 +29,8 @@ namespace sfem::fe
         virtual la::DenseMatrix operator()(const FiniteElement &elem,
                                            const FEData &data,
                                            const std::vector<Scalar> &xpts,
-                                           const std::vector<Scalar> &u) const = 0;
+                                           const std::vector<Scalar> &u,
+                                           Scalar time = 0) const = 0;
 
     protected:
         int size_;

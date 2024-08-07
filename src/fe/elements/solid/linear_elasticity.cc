@@ -31,7 +31,8 @@ namespace sfem::fe::solid
     //=============================================================================
     la::DenseMatrix LinearElasticity2D::evaluate_mass_matrix(const FEData &data,
                                                              const std::vector<Scalar> &xpts,
-                                                             const std::vector<Scalar> &u) const
+                                                             const std::vector<Scalar> &u,
+                                                             Scalar time) const
     {
         la::DenseMatrix Me(n_dof(), n_dof());
         Scalar thick = constitutive_.thick();
@@ -49,7 +50,8 @@ namespace sfem::fe::solid
     //=============================================================================
     la::DenseMatrix LinearElasticity2D::evaluate_stiff_matrix(const FEData &data,
                                                               const std::vector<Scalar> &xpts,
-                                                              const std::vector<Scalar> &u) const
+                                                              const std::vector<Scalar> &u,
+                                                              Scalar time) const
     {
         auto B = constitutive_.strain_displacement_matrix(data.dNdX);
         auto D = constitutive_.stress_strain_matrix();
@@ -58,7 +60,8 @@ namespace sfem::fe::solid
     //=============================================================================
     la::DenseMatrix LinearElasticity2D::evaluate_load_vector(const FEData &data,
                                                              const std::vector<Scalar> &xpts,
-                                                             const std::vector<Scalar> &u) const
+                                                             const std::vector<Scalar> &u,
+                                                             Scalar time) const
     {
         la::DenseMatrix Fe(n_dof(), 1);
         for (std::size_t i = 0; i < loads_.size(); i++)
@@ -88,7 +91,8 @@ namespace sfem::fe::solid
     //=============================================================================
     la::DenseMatrix LinearElasticity3D::evaluate_stiff_matrix(const FEData &data,
                                                               const std::vector<Scalar> &xpts,
-                                                              const std::vector<Scalar> &u) const
+                                                              const std::vector<Scalar> &u,
+                                                              Scalar time) const
     {
         auto B = constitutive_.strain_displacement_matrix(data.dNdX);
         auto D = constitutive_.stress_strain_matrix();
@@ -97,7 +101,8 @@ namespace sfem::fe::solid
     //=============================================================================
     la::DenseMatrix LinearElasticity3D::evaluate_mass_matrix(const FEData &data,
                                                              const std::vector<Scalar> &xpts,
-                                                             const std::vector<Scalar> &u) const
+                                                             const std::vector<Scalar> &u,
+                                                             Scalar time) const
     {
         la::DenseMatrix Me(n_dof(), n_dof());
         Scalar rho = constitutive_.prop().rho;
@@ -115,7 +120,8 @@ namespace sfem::fe::solid
     //=============================================================================
     la::DenseMatrix LinearElasticity3D::evaluate_load_vector(const FEData &data,
                                                              const std::vector<Scalar> &xpts,
-                                                             const std::vector<Scalar> &u) const
+                                                             const std::vector<Scalar> &u,
+                                                             Scalar time) const
     {
         la::DenseMatrix Fe(n_dof(), 1);
         for (std::size_t i = 0; i < loads_.size(); i++)

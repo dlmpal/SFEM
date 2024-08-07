@@ -7,9 +7,16 @@
 
 namespace sfem::fe
 {
+    /// @brief Project a function over the given elements
+    /// @param elems Elements to use for projection
+    /// @param field Corresponding field
+    /// @param func Function to be projected
+    /// @param time Current solution time
+    /// @return The projected field
     inline mesh::Field project_function(const std::vector<std::shared_ptr<FiniteElement>> &elems,
                                         const mesh::Field &field,
-                                        const Function &func)
+                                        const Function &func,
+                                        Scalar time = 0)
     {
 
         // Resulting field
@@ -33,7 +40,7 @@ namespace sfem::fe
             auto dof = field.dof_im().local_to_global(field.mesh().get_cell_nodes(elem->cell()));
             auto u = field.get_cell_values(elem->cell());
 
-            auto [Me, Fe] = elem->project_function(xpts, u, func);
+            auto [Me, Fe] = elem->project_function(xpts, u, func, time);
 
             M.add_values(dof, Me.entries());
             for (int i = 0; i < func.size(); i++)

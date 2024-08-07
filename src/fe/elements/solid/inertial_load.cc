@@ -14,7 +14,8 @@ namespace sfem::fe::solid
     //=============================================================================
     la::DenseMatrix InertialLoad2D::evaluate_load_vector(const FEData &data,
                                                          const std::vector<Scalar> &xpts,
-                                                         const std::vector<Scalar> &u) const
+                                                         const std::vector<Scalar> &u,
+                                                         Scalar time) const
     {
         Scalar thick = constitutive_.thick();
         Scalar rho = constitutive_.prop().rho;
@@ -38,7 +39,8 @@ namespace sfem::fe::solid
     //=============================================================================
     la::DenseMatrix InertialLoad3D::evaluate_load_vector(const FEData &data,
                                                          const std::vector<Scalar> &xpts,
-                                                         const std::vector<Scalar> &u) const
+                                                         const std::vector<Scalar> &u,
+                                                         Scalar time) const
     {
         Scalar rho = constitutive_.prop().rho;
         la::DenseMatrix Fe(n_dof(), 1);
