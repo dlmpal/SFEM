@@ -11,7 +11,7 @@ namespace sfem::fe::thermal
     la::DenseMatrix HeatConvection2D::evaluate_stiff_matrix(const FEData &data,
                                                             const std::vector<Scalar> &xpts,
                                                             const std::vector<Scalar> &u,
-                                                            Scalar time = 0) const
+                                                            Scalar time) const
     {
         int n_nodes = basis_->n_nodes();
         la::DenseMatrix Ke(n_nodes, n_nodes);
@@ -28,7 +28,7 @@ namespace sfem::fe::thermal
     la::DenseMatrix HeatConvection2D::evaluate_load_vector(const FEData &data,
                                                            const std::vector<Scalar> &xpts,
                                                            const std::vector<Scalar> &u,
-                                                           Scalar time = 0) const
+                                                           Scalar time) const
     {
         int n_nodes = basis_->n_nodes();
         la::DenseMatrix Fe(n_nodes, 1);
@@ -47,7 +47,7 @@ namespace sfem::fe::thermal
     la::DenseMatrix HeatConvection3D::evaluate_stiff_matrix(const FEData &data,
                                                             const std::vector<Scalar> &xpts,
                                                             const std::vector<Scalar> &u,
-                                                            Scalar time = 0) const
+                                                            Scalar time) const
     {
         int n_nodes = basis_->n_nodes();
         la::DenseMatrix Ke(n_nodes, n_nodes);
@@ -64,7 +64,7 @@ namespace sfem::fe::thermal
     la::DenseMatrix HeatConvection3D::evaluate_load_vector(const FEData &data,
                                                            const std::vector<Scalar> &xpts,
                                                            const std::vector<Scalar> &u,
-                                                           Scalar time = 0) const
+                                                           Scalar time) const
     {
         int n_nodes = basis_->n_nodes();
         la::DenseMatrix Fe(n_nodes, 1);

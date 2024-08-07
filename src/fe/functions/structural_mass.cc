@@ -13,7 +13,8 @@ namespace sfem::fe::function
     la::DenseMatrix StructuralMass2D::operator()(const FiniteElement &elem,
                                                  const FEData &data,
                                                  const std::vector<Scalar> &xpts,
-                                                 const std::vector<Scalar> &u) const
+                                                 const std::vector<Scalar> &u,
+                                                 Scalar time) const
     {
         la::DenseMatrix mass(1, 1);
 
@@ -41,7 +42,8 @@ namespace sfem::fe::function
     la::DenseMatrix StructuralMass3D::operator()(const FiniteElement &elem,
                                                  const FEData &data,
                                                  const std::vector<Scalar> &xpts,
-                                                 const std::vector<Scalar> &u) const
+                                                 const std::vector<Scalar> &u,
+                                                 Scalar time) const
     {
         la::DenseMatrix mass(1, 1);
 
