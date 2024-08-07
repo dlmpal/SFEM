@@ -12,7 +12,7 @@ namespace sfem::fe
     /// @brief Assemble matrix contributions from elements into a PetscMat
     /// @param elems The contributing elements
     /// @param field Corresponding field
-    /// @param type Type of FEMatrix
+    /// @param type Element matrix type, e.g stiffness
     /// @param mat PetscMat where entries are assembled
     /// @param time Current solution time
     inline void assemble_matrix(const std::vector<std::shared_ptr<FiniteElement>> &elems,
@@ -42,7 +42,7 @@ namespace sfem::fe
     /// @brief Assemble vector contributions from elements into a PetscVec
     /// @param elems The contributing elements
     /// @param field Corresponding field
-    /// @param type Type of FEVector
+    /// @param type Element vector type, e.g. load
     /// @param vec PetscVec where entries are assembled
     /// @param time Current solution time
     inline void assemble_vector(const std::vector<std::shared_ptr<FiniteElement>> &elems,
