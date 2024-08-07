@@ -7,6 +7,7 @@
 using namespace sfem;
 using namespace fe;
 namespace nb = nanobind;
+using namespace nb::literals;
 
 namespace sfem_wrappers
 {
@@ -216,11 +217,11 @@ namespace sfem_wrappers
     void init_utils(nb::module_ &m)
     {
         // Assembly
-        m.def("assemble_function", &assemble_function);
-        m.def("assemble_vector", &assemble_vector);
-        m.def("assemble_matrix", &assemble_matrix);
+        m.def("assemble_matrix", &assemble_matrix, "elems"_a, "field"_a, "type"_a, "mat"_a, "time"_a = 0.0);
+        m.def("assemble_vector", &assemble_vector, "elems"_a, "field"_a, "type"_a, "vec"_a, "time"_a = 0.0);
+        m.def("assemble_function", &assemble_function, "elems"_a, "field"_a, "func"_a, "time"_a = 0.0);
 
         // Project
-        m.def("project_function", &project_function);
+        m.def("project_function", &project_function, "elems"_a, "field"_a, "func"_a, "time"_a = 0.0);
     }
 }
