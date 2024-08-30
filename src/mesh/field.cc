@@ -1,6 +1,7 @@
 #include "field.h"
 #include "../common/error.h"
 #include <mpi.h>
+#include <numeric>
 
 namespace sfem::mesh
 {
@@ -113,6 +114,14 @@ namespace sfem::mesh
     {
         auto ghost_nodes = dof_im_.get_ghost_idxs();
         return map_node_dof(ghost_nodes);
+    }
+    //=============================================================================
+    std::vector<int> Field::get_local_dof() const
+    {
+        auto local_nodes = std::vector<int>(dof_im_.n_local());
+        std::iota(local_nodes.begin(), local_nodes.end(), 0);
+        local_nodes = dof_im_.local_to_global(local_nodes);
+        return map_node_dof(local_nodes);
     }
     //=============================================================================
     std::vector<int> Field::get_cell_dof(const mesh::Cell &cell) const

@@ -68,6 +68,9 @@ namespace sfem::mesh
         /// @brief Get the ghsot DoF for this process
         std::vector<int> get_ghost_dof() const;
 
+        /// @brief Get the DoF local to this process (owned + ghost)
+        std::vector<int> get_local_dof() const;
+
         /// @brief Get the DoF belonging to a cell
         /// @note The DoF are returned in global indexing
         std::vector<int> get_cell_dof(const mesh::Cell &cell) const;
