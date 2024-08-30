@@ -96,6 +96,7 @@ namespace sfem_wrappers
             .def("map_node_dof", &Field::map_node_dof)
             .def("get_owned_dof", &Field::get_owned_dof)
             .def("get_ghost_dof", &Field::get_ghost_dof)
+            .def("get_local_dof", &Field::get_local_dof)
             .def("get_cell_dof", &Field::get_cell_dof)
             .def("get_cell_values", &Field::get_cell_values)
             .def("add_fixed_dof", &Field::add_fixed_dof)
