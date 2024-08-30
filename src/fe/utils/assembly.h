@@ -37,6 +37,8 @@ namespace sfem::fe
             auto elem_matrix = elem->integrate_fe_matrix(xpts, u, type, time);
             mat.add_values(dof, elem_matrix.entries());
         }
+
+        mat.assemble();
     }
 
     /// @brief Assemble vector contributions from elements into a PetscVec
@@ -67,6 +69,8 @@ namespace sfem::fe
             auto elem_vec = elem->integrate_fe_vector(xpts, u, type, time);
             vec.add_values(dof, elem_vec.entries());
         }
+
+        vec.assemble();
     }
 
     /// @brief Assemble (integrate) a function for the given elements
