@@ -32,11 +32,35 @@ namespace sfem::la::petsc
         return PetscMat(diag_nnz, off_diag_nnz);
     }
 
+    /// @brief Scale a PetscVec by a factor
+    inline void vec_scale(Scalar a, PetscVec &x)
+    {
+        VecScale(x.vec(), a);
+    }
+
+    /// @brief Compute v3 as v3 = v2 + Av1
+    inline void mat_mult_add(const PetscMat &A, const PetscVec &v1, const PetscVec &v2, PetscVec &v3)
+    {
+        MatMultAdd(A.mat(), v1.vec(), v2.vec(), v3.vec());
+    }
+
+    /// @brief Scale a PetscMat by a factor
+    inline void mat_scale(Scalar a, PetscMat &A)
+    {
+        MatScale(A.mat(), a);
+    }
+
+    /// @brief Compute y += ax, where y and x are PetscMat objects
+    inline void mat_axpy(Scalar a, const PetscMat &x, PetscMat &y)
+    {
+        MatAXPY(y.mat(), a, x.mat(), SAME_NONZERO_PATTERN);
+    }
+
     /// @brief For a linear system of the form Ax=b,
     /// remove rows and columns of A corresponding to fixed DoF,
     /// and add their contribution to b
     /// @note Does not affect the symmetry of A
-    /// @note Calls .assemble() the A, b and x
+    /// @note Also calls assemble() on x
     /// @param idxs Indices of the fixed DoF
     /// @param values Values of the fixed DoF
     /// @param A Left-hand-side (LHS) matrix
@@ -48,10 +72,8 @@ namespace sfem::la::petsc
                                 PetscVec &b,
                                 PetscVec &x)
     {
-        A.assemble();
         x.insert_values(idxs, values);
         MatZeroRowsColumns(A.mat(), idxs.size(), idxs.data(), 1.0, x.vec(), b.vec());
-        b.assemble();
         x.assemble();
     }
 

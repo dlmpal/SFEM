@@ -68,6 +68,10 @@ namespace sfem_wrappers
         // PETSc utils
         m.def("create_vec", &create_vec);
         m.def("create_mat", &create_mat);
+        m.def("vec_scale", &vec_scale);
+        m.def("mat_mult_add", &mat_mult_add);
+        m.def("mat_scale", &mat_scale);
+        m.def("mat_axpy", &mat_axpy);
         m.def("apply_fixed_dof", &apply_fixed_dof);
         m.def("solve", &solve);
 
