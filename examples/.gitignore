@@ -7,6 +7,8 @@ elasticity3D/fields/
 laplace/build/
 laplace/fields/
 
+transient/fields
+
 heat_transfer/
 shell/
-pysfem/
+thermoelasticity/
